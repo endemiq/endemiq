@@ -2,12 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import Map from 'components/Map';
+
 const IndexPage = ({ places }) => (
-  <ul>
-    {places.collection.map(place => (
-      <li key={place.id}>{place.title}</li>
-    ))}
-  </ul>
+  <>
+    {/* <ul>
+      {places.geojson.features.map(place => (
+        <li key={place.properties.id}>{place.properties.title}</li>
+      ))}
+    </ul> */}
+    <Map places={places} />
+  </>
 );
 
 IndexPage.propTypes = {

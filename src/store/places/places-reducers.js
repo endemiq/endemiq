@@ -1,5 +1,6 @@
 import {
   SET_PLACES,
+  SET_PLACES_GEOJSON,
   SET_PLACES_LOADING,
   SET_PLACES_ERROR,
 } from './places-actions';
@@ -10,8 +11,17 @@ export default function placesReducer(state = initialState, action) {
     case SET_PLACES:
       return {
         ...state,
-        collection: action.payload,
+        collection: action.payload.reduce((acc, val) => {
+          acc[val.id] = val;
+          return acc;
+        }, {}),
         loading: false,
+      };
+
+    case SET_PLACES_GEOJSON:
+      return {
+        ...state,
+        geojson: action.payload,
       };
 
     case SET_PLACES_LOADING:

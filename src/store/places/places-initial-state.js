@@ -1,10 +1,7 @@
 const initialState = {
   loading: false,
   error: null,
-  geojson: {
-    type: 'FeatureCollection',
-    features: [],
-  },
+  geojson: null,
   collection: [],
 };
 
