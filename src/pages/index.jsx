@@ -1,13 +1,20 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-const IndexPage = () => <div>Sup?</div>;
+const IndexPage = ({ places }) => (
+  <ul>
+    {places.collection.map(place => (
+      <li key={place.id}>{place.title}</li>
+    ))}
+  </ul>
+);
 
-IndexPage.propTypes = {};
+IndexPage.propTypes = {
+  places: PropTypes.object.isRequired,
+};
 IndexPage.defaultProps = {};
-// IndexPage.getInitialProps = async () => {
-//   const show = await fetchTV(1432);
-//   return { show };
-// };
 
-export default IndexPage;
+const mapState = ({ places }) => ({ places });
+
+export default connect(mapState)(IndexPage);

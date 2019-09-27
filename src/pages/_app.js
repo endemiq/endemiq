@@ -1,13 +1,26 @@
 import React from 'react';
-import App, { Container } from 'next/app';
+import App from 'next/app';
+import NProgress from 'nprogress';
+import Router from 'next/router';
+import Head from 'next/head';
 import { Provider } from 'react-redux';
-import withRedux from 'next-redux-wrapper';
-import PropTypes from 'prop-types';
+import withRedux from 'next-redux-wrapper'; // eslint-disable-line
 
 import makeStore from 'store/index';
+import { getPlaces, setLoading } from 'store/places/places-actions';
+
+Router.events.on('routeChangeStart', url => {
+  console.log(`Loading: ${url}`);
+  NProgress.start();
+});
+Router.events.on('routeChangeComplete', () => NProgress.done());
+Router.events.on('routeChangeError', () => NProgress.done());
 
 class CustomApp extends App {
   static async getInitialProps({ Component, ctx }) {
+    await ctx.store.dispatch(setLoading());
+    await ctx.store.dispatch(getPlaces());
+
     const pageProps = Component.getInitialProps
       ? await Component.getInitialProps(ctx)
       : {};
@@ -17,20 +30,17 @@ class CustomApp extends App {
 
   render() {
     const { Component, pageProps, store } = this.props;
+
     return (
-      <Container>
-        <Provider store={store}>
-          <Component {...pageProps} />
-        </Provider>
-      </Container>
+      <Provider store={store}>
+        <Head>
+          {/* Import CSS for nprogress */}
+          <link rel="stylesheet" type="text/css" href="/static/nprogress.css" />
+        </Head>
+        <Component {...pageProps} />
+      </Provider>
     );
   }
 }
 
-CustomApp.propTypes = {
-  Component: PropTypes.node.isRequired,
-  pageProps: PropTypes.object.isRequired,
-  store: PropTypes.object.isRequired,
-};
-
-export default withRedux(makeStore)(App);
+export default withRedux(makeStore)(CustomApp);

@@ -7,7 +7,7 @@
     "build": "next build ./src",
     "dev": "next start ./src",
     "lint:css": "stylelint ./**/*.{css,scss,styles.js,styles.jsx}",
-    "lint:js": "eslint . --ext .js,.jsx --max-warnings=0",
+    "lint:js": "eslint src --ext .js,.jsx --max-warnings=0",
     "lint": "npm run lint:js && npm run lint:css",
     "storybook:start": "start-storybook -p 1234",
     "storybook:build": "build-storybook"
@@ -36,8 +36,10 @@
   "dependencies": {
     "axios": "^0.19.0",
     "clsx": "^1.0.4",
+    "firebase": "^7.0.0",
     "next": "^9.0.5",
     "next-redux-wrapper": "^4.0.0",
+    "nprogress": "^0.2.0",
     "prop-types": "^15.7.2",
     "ramda": "^0.26.1",
     "react": "^16.9.0",

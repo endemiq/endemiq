@@ -24,3 +24,4 @@ yarn-error.log*
 
 src/.next
 storybook-static/
+src/config/firebase.json
