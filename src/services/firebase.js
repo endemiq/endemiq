@@ -8,14 +8,6 @@ const db = firebase.firestore();
 
 export const getFirebasePlaces = () =>
   db
-    .collection('fl_content')
+    .collection('places')
     .where('published', '==', true)
     .get();
-
-export const sanitize = data => ({
-  ...data,
-  _fl_meta_: {
-    ...data._fl_meta_,
-    schemaRef: null,
-  },
-});

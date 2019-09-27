@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 
 import mapConfig from 'config/map.json';
@@ -12,6 +13,8 @@ const Map = ({ places }) => {
 
   /* eslint-disable-next-line */
   const map = useRef(null);
+  /* eslint-disable-next-line */
+  const router = useRouter();
   const mapboxgl = require('mapbox-gl'); // eslint-disable-line
   mapboxgl.accessToken = 'undefined';
 
@@ -73,8 +76,7 @@ const Map = ({ places }) => {
     // Define point click event -> open popup
     map.current.on('click', 'unclustered-points', e => {
       const point = e.features[0];
-
-      console.log(point);
+      router.push(`/place/${point.properties.slug}`);
     });
 
     // Set proper hover cursor
@@ -139,10 +141,10 @@ const Map = ({ places }) => {
         className="map"
         style={{
           position: 'absolute',
-          top: 10,
-          right: 10,
-          bottom: 10,
-          left: 10,
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0,
         }}
       />
     </>

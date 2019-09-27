@@ -1,4 +1,4 @@
-import { getFirebasePlaces, sanitize } from 'services/firebase';
+import { getFirebasePlaces } from 'services/firebase';
 
 export const SET_PLACES = 'SET_PLACES';
 export const SET_PLACES_GEOJSON = 'SET_PLACES_GEOJSON';
@@ -25,7 +25,7 @@ export const setGeojson = places => ({
 export const getPlaces = () => dispatch =>
   getFirebasePlaces()
     .then(querySnapshot => {
-      const places = querySnapshot.docs.map(doc => sanitize(doc.data()));
+      const places = querySnapshot.docs.map(doc => doc.data());
       dispatch({ type: SET_PLACES, payload: places });
       dispatch(setGeojson(places));
     })

@@ -12,7 +12,7 @@ export default function placesReducer(state = initialState, action) {
       return {
         ...state,
         collection: action.payload.reduce((acc, val) => {
-          acc[val.id] = val;
+          acc[val.slug] = val;
           return acc;
         }, {}),
         loading: false,
