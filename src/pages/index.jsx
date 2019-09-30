@@ -1,21 +1,15 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
-import { Layout, ListControl, Map } from 'components';
+import { Layout, ListControl } from 'components';
 
-const IndexPage = ({ places }) => (
-  <Layout>
-    <Map places={places} />
+const IndexPage = () => (
+  <Layout hasMap>
     <ListControl isMap />
   </Layout>
 );
 
-IndexPage.propTypes = {
-  places: PropTypes.object.isRequired,
-};
+IndexPage.propTypes = {};
 IndexPage.defaultProps = {};
 
-const mapState = ({ places }) => ({ places });
-
-export default connect(mapState)(IndexPage);
+export default IndexPage;

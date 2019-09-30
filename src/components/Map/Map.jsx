@@ -9,7 +9,7 @@ import { IS_CLIENT } from 'config/constants';
 
 import styles from './Map.styles';
 
-const Map = ({ places }) => {
+const Map = ({ places, opened }) => {
   if (!IS_CLIENT) return '';
 
   /* eslint-disable */
@@ -17,12 +17,14 @@ const Map = ({ places }) => {
   const mapElement = useRef(null);
   const mapboxgl = require('mapbox-gl'); // eslint-disable-line
   mapboxgl.accessToken = 'undefined';
-  /* eslint-enable */
+
+  useEffect(() => {
+    if (map.current !== null) map.current.resize();
+  }, [opened]);
 
   // Initiate Map
-  /* eslint-disable-next-line */
   useEffect(() => {
-    console.log(mapElement.current);
+    /* eslint-enable */
     // Init map instance
     map.current = new mapboxgl.Map({
       container: mapElement.current,
@@ -141,12 +143,23 @@ const Map = ({ places }) => {
     }
   }, [places]);
 
-  return <div id="map" className="map" css={styles} ref={mapElement} />;
+  return (
+    <div
+      id="map"
+      className="map"
+      css={styles}
+      ref={mapElement}
+      style={{ bottom: opened ? 0 : '100%' }}
+    />
+  );
 };
 
 Map.propTypes = {
   places: PropTypes.object.isRequired,
+  opened: PropTypes.bool,
 };
-Map.defaultProps = {};
+Map.defaultProps = {
+  opened: false,
+};
 
 export default Map;

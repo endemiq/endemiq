@@ -1,12 +1,14 @@
 import React from 'react';
 import App from 'next/app';
 import NProgress from 'nprogress';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper'; // eslint-disable-line
+import PropTypes from 'prop-types';
 
 import makeStore from 'store/index';
 import { getPlaces, setLoading } from 'store/places/places-actions';
+import { Map } from 'components';
 
 NProgress.configure({ showSpinner: false });
 Router.events.on('routeChangeStart', url => {
@@ -15,6 +17,16 @@ Router.events.on('routeChangeStart', url => {
 });
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
+
+const MapWrapper = ({ places }) => {
+  const router = useRouter();
+
+  return <Map places={places} opened={router.pathname === '/'} />;
+};
+
+MapWrapper.propTypes = {
+  places: PropTypes.object.isRequired,
+};
 
 class CustomApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -37,6 +49,7 @@ class CustomApp extends App {
     return (
       <Provider store={store}>
         <Component {...pageProps} />
+        <MapWrapper places={store.getState().places} />
       </Provider>
     );
   }

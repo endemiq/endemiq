@@ -5,9 +5,10 @@ import { toPix } from 'styles/helpers';
 
 export default css`
   display: flex;
+  position: fixed;
   justify-items: space-between;
   align-items: center;
-  position: fixed;
+  z-index: 99;
   bottom: ${toPix(sizes.gutter * 2)};
   left: 50%;
   padding: ${toPix(sizes.base)} ${toPix(sizes.gutter)};
