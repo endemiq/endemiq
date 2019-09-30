@@ -1,18 +1,17 @@
+/** eslint-disable-next-line @jsx jsx */
 import React from 'react';
+import { jsx } from '@emotion/core'; // eslint-disable-line
 // import PropTypes from 'prop-types';
 
 import Logo from 'assets/svg/endemiq-logo.svg';
-import { Icon } from 'components';
 
 import styles from './Header.styles';
 
 const Header = () => (
   <>
-    <style jsx>{styles}</style>
-    <div>
-      <Logo />
-      <Icon name="heart-plain" />
-    </div>
+    <header css={styles} className="d-flex align-center justify-center">
+      <Logo className="brand" />
+    </header>
   </>
 );
 

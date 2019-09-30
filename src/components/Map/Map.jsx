@@ -1,5 +1,7 @@
+/** eslint-disable-next-line @jsx jsx */
 import React, { useRef, useEffect } from 'react';
 import Router from 'next/router';
+import { jsx } from '@emotion/core'; // eslint-disable-line
 import PropTypes from 'prop-types';
 
 import mapConfig from 'config/map.json';
@@ -137,24 +139,7 @@ const Map = ({ places }) => {
     }
   }, [places]);
 
-  return (
-    <>
-      <style jsx global>
-        {styles}
-      </style>
-      <div
-        id="map"
-        className="map"
-        style={{
-          position: 'absolute',
-          top: 0,
-          right: 0,
-          bottom: 0,
-          left: 0,
-        }}
-      />
-    </>
-  );
+  return <div css={styles} id="map" className="map" />;
 };
 
 Map.propTypes = {

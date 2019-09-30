@@ -7,20 +7,6 @@ import { Layout } from 'components';
 
 const IndexPage = ({ places }) => (
   <Layout>
-    <div
-      style={{
-        position: 'absolute',
-        zIndex: 9999,
-        top: 0,
-        left: '50%',
-        background: 'gray',
-        padding: 10,
-      }}
-    >
-      <Link href="/">
-        <a>Map</a>
-      </Link>
-    </div>
     <ul>
       {places.geojson.features.map(place => (
         <li key={place.properties.slug}>

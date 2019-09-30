@@ -1,17 +1,16 @@
+/** eslint-disable-next-line @jsx jsx */
 import React from 'react';
+import { jsx } from '@emotion/core'; // eslint-disable-line
 import PropTypes from 'prop-types';
 
 import styles from './Icon.styles';
 
 const Icon = ({ name }) => (
-  <>
-    <style jsx>{styles}</style>
-    <span className={`icon icon-${name}`} aria-hidden="true">
-      <svg>
-        <use xlinkHref={`#${name}`} />
-      </svg>
-    </span>
-  </>
+  <span css={styles} className={`icon icon-${name}`} aria-hidden="true">
+    <svg>
+      <use xlinkHref={`#${name}`} />
+    </svg>
+  </span>
 );
 
 Icon.propTypes = { name: PropTypes.string };

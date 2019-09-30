@@ -1,7 +1,5 @@
-import css from 'styled-jsx/css';
+import { css } from '@emotion/core';
 
 export default css`
-  div {
-    background: black;
-  }
+  background: black;
 `;
