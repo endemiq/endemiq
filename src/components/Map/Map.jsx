@@ -1,11 +1,10 @@
 import React, { useRef, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
 
 import mapConfig from 'config/map.json';
 import { IS_CLIENT } from 'config/constants';
 
-import 'mapbox-gl/dist/mapbox-gl.css';
 import styles from './Map.styles';
 
 const Map = ({ places }) => {
@@ -14,7 +13,6 @@ const Map = ({ places }) => {
   /* eslint-disable-next-line */
   const map = useRef(null);
   /* eslint-disable-next-line */
-  const router = useRouter();
   const mapboxgl = require('mapbox-gl'); // eslint-disable-line
   mapboxgl.accessToken = 'undefined';
 
@@ -76,7 +74,7 @@ const Map = ({ places }) => {
     // Define point click event -> open popup
     map.current.on('click', 'unclustered-points', e => {
       const point = e.features[0];
-      router.push(`/place/${point.properties.slug}`);
+      Router.push(`/place/[slug]`, `/place/${point.properties.slug}`);
     });
 
     // Set proper hover cursor
@@ -95,6 +93,14 @@ const Map = ({ places }) => {
 
     // map.current.on('load', () => map.current.resize());
   }, []);
+
+  // Prefetch places pages
+  /* eslint-disable-next-line */
+  useEffect(() => {
+    places.geojson.features.forEach(place => {
+      Router.prefetch(`/place/[slug]`, `/place/${place.properties.slug}`);
+    });
+  }, [places]);
 
   // Update Map layers when places.geojson updates
   /* eslint-disable-next-line */

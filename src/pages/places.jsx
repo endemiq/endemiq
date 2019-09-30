@@ -3,8 +3,6 @@ import Link from 'next/link';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import Map from 'components/Map';
-
 const IndexPage = ({ places }) => (
   <>
     <div
@@ -17,11 +15,19 @@ const IndexPage = ({ places }) => (
         padding: 10,
       }}
     >
-      <Link href="/places">
-        <a>Places</a>
+      <Link href="/">
+        <a>Map</a>
       </Link>
     </div>
-    <Map places={places} />
+    <ul>
+      {places.geojson.features.map(place => (
+        <li key={place.properties.slug}>
+          <Link href="/place/[slug]" as={`/place/${place.properties.slug}`}>
+            <a>{place.properties.title}</a>
+          </Link>
+        </li>
+      ))}
+    </ul>
   </>
 );
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
@@ -10,6 +11,23 @@ const PlacePage = ({ places }) => {
 
   return (
     <>
+      <div
+        style={{
+          position: 'absolute',
+          zIndex: 9999,
+          top: 0,
+          left: '50%',
+          background: 'gray',
+          padding: 10,
+        }}
+      >
+        <Link href="/">
+          <a>Map</a>
+        </Link>
+        <Link href="/places">
+          <a>Places</a>
+        </Link>
+      </div>
       <img src={place.cover} width="100%" alt="cover" />
       <h1>{place.title}</h1>
       <h2>{place.subTitle}</h2>
