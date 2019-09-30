@@ -2,11 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { Layout, Map } from 'components';
+import { Layout, ListControl, Map } from 'components';
 
 const IndexPage = ({ places }) => (
   <Layout>
     <Map places={places} />
+    <ListControl isMap />
   </Layout>
 );
 

@@ -8,6 +8,10 @@ import { Header } from 'components';
 import Icons from 'components/Icon/Icons';
 import { layouts, spacing, typography } from 'styles';
 
+import 'minireset.css/minireset.css';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import 'locales/i18n';
+
 const Layout = ({ children }) => (
   <div css={[layouts, spacing]}>
     <Global styles={typography} />

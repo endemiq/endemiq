@@ -8,9 +8,6 @@ import withRedux from 'next-redux-wrapper'; // eslint-disable-line
 import makeStore from 'store/index';
 import { getPlaces, setLoading } from 'store/places/places-actions';
 
-import 'minireset.css/minireset.css';
-import 'mapbox-gl/dist/mapbox-gl.css';
-
 NProgress.configure({ showSpinner: false });
 Router.events.on('routeChangeStart', url => {
   console.log(`Loading: ${url}`);

@@ -1,5 +1,7 @@
 import { css } from '@emotion/core';
 
+import { colors } from 'styles';
+
 const responsiveSizes = {
   default: 0.3,
   h1: 2.28,
@@ -47,6 +49,7 @@ export default css`
   body {
     font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
     line-height: 1.5em;
+    color: ${colors.gray900};
 
     text-rendering: optimizeLegibility;
     font-feature-settings: 'kern' 1;

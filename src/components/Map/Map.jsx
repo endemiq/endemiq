@@ -12,18 +12,20 @@ import styles from './Map.styles';
 const Map = ({ places }) => {
   if (!IS_CLIENT) return '';
 
-  /* eslint-disable-next-line */
+  /* eslint-disable */
   const map = useRef(null);
-  /* eslint-disable-next-line */
+  const mapElement = useRef(null);
   const mapboxgl = require('mapbox-gl'); // eslint-disable-line
   mapboxgl.accessToken = 'undefined';
+  /* eslint-enable */
 
   // Initiate Map
   /* eslint-disable-next-line */
   useEffect(() => {
+    console.log(mapElement.current);
     // Init map instance
     map.current = new mapboxgl.Map({
-      container: 'map',
+      container: mapElement.current,
       style: mapConfig.style,
       center: [6.82713, 46.57167],
       zoom: 9,
@@ -139,7 +141,7 @@ const Map = ({ places }) => {
     }
   }, [places]);
 
-  return <div css={styles} id="map" className="map" />;
+  return <div id="map" className="map" css={styles} ref={mapElement} />;
 };
 
 Map.propTypes = {

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { Layout } from 'components';
+import { Layout, ListControl } from 'components';
 
 const IndexPage = ({ places }) => (
   <Layout>
@@ -16,6 +16,7 @@ const IndexPage = ({ places }) => (
         </li>
       ))}
     </ul>
+    <ListControl />
   </Layout>
 );
 
