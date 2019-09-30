@@ -3,8 +3,10 @@ import Link from 'next/link';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import { Layout } from 'components';
+
 const IndexPage = ({ places }) => (
-  <>
+  <Layout>
     <div
       style={{
         position: 'absolute',
@@ -28,7 +30,7 @@ const IndexPage = ({ places }) => (
         </li>
       ))}
     </ul>
-  </>
+  </Layout>
 );
 
 IndexPage.propTypes = {

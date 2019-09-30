@@ -3,10 +3,10 @@ import Link from 'next/link';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import Map from 'components/Map';
+import { Layout, Map } from 'components';
 
 const IndexPage = ({ places }) => (
-  <>
+  <Layout>
     <div
       style={{
         position: 'absolute',
@@ -22,7 +22,7 @@ const IndexPage = ({ places }) => (
       </Link>
     </div>
     <Map places={places} />
-  </>
+  </Layout>
 );
 
 IndexPage.propTypes = {

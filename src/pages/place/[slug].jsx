@@ -4,13 +4,15 @@ import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 
+import { Layout } from 'components';
+
 const PlacePage = ({ places }) => {
   const router = useRouter();
   const { slug } = router.query;
   const place = places.collection[slug];
 
   return (
-    <>
+    <Layout>
       <div
         style={{
           position: 'absolute',
@@ -40,7 +42,7 @@ const PlacePage = ({ places }) => {
       <div dangerouslySetInnerHTML={{ __html: place.description }} />
       <div dangerouslySetInnerHTML={{ __html: place.openingHours }} />
       {/* eslint-enable */}
-    </>
+    </Layout>
   );
 };
 

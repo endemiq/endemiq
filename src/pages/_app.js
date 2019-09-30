@@ -2,7 +2,6 @@ import React from 'react';
 import App from 'next/app';
 import NProgress from 'nprogress';
 import Router from 'next/router';
-import Head from 'next/head';
 import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper'; // eslint-disable-line
 
@@ -21,7 +20,6 @@ Router.events.on('routeChangeError', () => NProgress.done());
 
 class CustomApp extends App {
   static async getInitialProps({ Component, ctx }) {
-    console.log(ctx.store.getState());
     if (ctx.store.getState().places.geojson === null) {
       console.log('load firestore');
       await ctx.store.dispatch(setLoading());
@@ -40,10 +38,6 @@ class CustomApp extends App {
 
     return (
       <Provider store={store}>
-        <Head>
-          {/* Import CSS for nprogress */}
-          <link rel="stylesheet" type="text/css" href="/static/nprogress.css" />
-        </Head>
         <Component {...pageProps} />
       </Provider>
     );
