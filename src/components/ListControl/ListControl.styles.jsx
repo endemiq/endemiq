@@ -16,7 +16,6 @@ export default css`
   box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.4);
   font-size: 0.85rem;
   transform: translateX(-50%);
-  transition: color 0.25s;
 
   a {
     text-decoration: none;
@@ -24,6 +23,7 @@ export default css`
     margin-left: 0.5rem;
     padding-left: 0.5rem;
     border-left: 1px solid ${colors.gray200};
+    transition: color 0.25s;
 
     &:first-of-type {
       margin-left: 0;

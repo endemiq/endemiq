@@ -16,6 +16,11 @@ const Layout = ({ children }) => (
   <div css={[layouts, spacing]}>
     <Global styles={typography} />
     <Head>
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no"
+      />
+      <link rel="manifest" href="/static/manifest.json" />
       {/* Import CSS for nprogress */}
       <link rel="stylesheet" href="//rsms.me/inter/inter.css" />
       <link rel="stylesheet" type="text/css" href="/static/nprogress.css" />

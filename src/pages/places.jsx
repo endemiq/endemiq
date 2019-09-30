@@ -1,21 +1,27 @@
 import React from 'react';
-import Link from 'next/link';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { Layout, ListControl } from 'components';
+import { Layout, ListControl, ListItem } from 'components';
 
 const IndexPage = ({ places }) => (
   <Layout>
-    <ul>
-      {places.geojson.features.map(place => (
-        <li key={place.properties.slug}>
-          <Link href="/place/[slug]" as={`/place/${place.properties.slug}`}>
-            <a>{place.properties.title}</a>
-          </Link>
-        </li>
-      ))}
-    </ul>
+    <div className="container">
+      <div className="row d-flex wrap my-4">
+        {places.geojson.features.map(place => (
+          <ListItem key={place.slug} item={place} />
+        ))}
+        {places.geojson.features.map(place => (
+          <ListItem key={place.slug} item={place} />
+        ))}
+        {places.geojson.features.map(place => (
+          <ListItem key={place.slug} item={place} />
+        ))}
+        {places.geojson.features.map(place => (
+          <ListItem key={place.slug} item={place} />
+        ))}
+      </div>
+    </div>
     <ListControl />
   </Layout>
 );

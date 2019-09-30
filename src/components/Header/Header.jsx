@@ -1,5 +1,6 @@
 /** eslint-disable-next-line @jsx jsx */
 import React from 'react';
+import Link from 'next/link';
 import { jsx } from '@emotion/core'; // eslint-disable-line
 // import PropTypes from 'prop-types';
 
@@ -10,7 +11,11 @@ import styles from './Header.styles';
 const Header = () => (
   <>
     <header css={styles} className="d-flex align-center justify-center">
-      <Logo className="brand" />
+      <Link href="/">
+        <a className="brand">
+          <Logo />
+        </a>
+      </Link>
     </header>
   </>
 );

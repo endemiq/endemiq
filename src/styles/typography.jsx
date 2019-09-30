@@ -32,7 +32,8 @@ const responsiveTypography = (
       }
 
       return `
-      ${element} {
+      ${element},
+      .${element} {
         font-size: calc(1rem + ${elements[element]} * 1vw) !important;
 
         @media only screen and (min-width: ${limit}) {
@@ -75,26 +76,31 @@ export default css`
     font-weight: 600;
   }
 
-  h1 {
+  h1,
+  .h1 {
     line-height: 1.27em;
     letter-spacing: -0.8px;
   }
 
-  h2 {
+  h2,
+  .h2 {
     line-height: 1.22em;
     letter-spacing: -0.3px;
   }
 
-  h3 {
+  h3,
+  .h3 {
     line-height: 1.32em;
     letter-spacing: -0.1px;
   }
 
-  h4 {
+  h4,
+  .h4 {
     line-height: 1.47em;
   }
 
-  h5 {
+  h5,
+  .h5 {
     line-height: 1.5em;
   }
 `;

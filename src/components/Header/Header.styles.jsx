@@ -13,10 +13,14 @@ export default css`
   }
 
   .brand {
-    height: ${toPix(sizes.headerLg - 20)};
+    display: inline-flex;
 
-    @media only screen and (max-width: 700px) {
-      height: ${toPix(sizes.headerSm - 20)};
+    svg {
+      height: ${toPix(sizes.headerLg - 20)};
+
+      @media only screen and (max-width: 700px) {
+        height: ${toPix(sizes.headerSm - 20)};
+      }
     }
   }
 `;
