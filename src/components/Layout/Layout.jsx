@@ -1,4 +1,4 @@
-/** eslint-disable-next-line @jsx jsx */
+/** @jsx jsx */
 import React from 'react';
 import Head from 'next/head';
 import { Global ,jsx } from '@emotion/core'; // eslint-disable-line
@@ -7,10 +7,6 @@ import PropTypes from 'prop-types';
 import { Header } from 'components';
 import Icons from 'components/Icon/Icons';
 import { layouts, spacing, typography } from 'styles';
-
-import 'minireset.css/minireset.css';
-import 'mapbox-gl/dist/mapbox-gl.css';
-import 'locales/i18n';
 
 const Layout = ({ children }) => (
   <div css={[layouts, spacing]}>

@@ -1,6 +1,6 @@
-/** eslint-disable-next-line @jsx jsx */
+/** @jsx jsx */
 import React from 'react';
-import { jsx } from '@emotion/core'; // eslint-disable-line
+import { jsx } from '@emotion/core';
 import PropTypes from 'prop-types';
 
 import styles from './Blank.styles';

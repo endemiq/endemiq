@@ -8,13 +8,17 @@
   "settings": {
     "import/resolver": {
       "node": {
-        "paths": ["src"]
+        "paths": ["./src"]
       }
     }
+  },
+  "globals": {
+    "tw": "readonly"
   },
   "rules": {
     "react-hooks/exhaustive-deps": 0,
     "react/jsx-props-no-spreading": 0,
+    "camelcase": 0,
     "import/no-extraneous-dependencies": [
       "error",
       {
@@ -41,6 +45,7 @@
         ],
         "newlines-between": "always"
       }
-    ]
+    ],
+    "no-unused-vars": ["error", { "varsIgnorePattern": "React" }]
   }
 }
