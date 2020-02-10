@@ -11,7 +11,7 @@ export default css`
     padding: 0 ${toPix(sizes.gutter)};
   }
 
-  .d-flex {
+  .flex {
     display: flex;
 
     &.row {

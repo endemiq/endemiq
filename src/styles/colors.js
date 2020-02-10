@@ -8,4 +8,5 @@ export default {
   gray100: '#eceff1',
   white: '#fff',
   primary: '#FFEC00',
+  red: '#E7114E',
 };

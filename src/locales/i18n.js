@@ -1,7 +1,7 @@
 import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-import fr from 'locales/messages.fr.json';
+import fr from 'locales/messages.fr.js';
 
 const fallbackLng = 'fr';
 

@@ -7,7 +7,7 @@ import { Layout, ListControl, ListItem } from 'components';
 const IndexPage = ({ places }) => (
   <Layout>
     <div className="container">
-      <div className="row d-flex wrap my-4">
+      <div className="row flex wrap my-4">
         {places.geojson.features.map(place => (
           <ListItem key={place.properties.slug} item={place} />
         ))}
