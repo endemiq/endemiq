@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { reject, append } from 'ramda';
+import axios from 'axios';
 import { string, object, boolean, array } from 'yup';
 import { useFormik } from 'formik';
 import { jsx } from '@emotion/core';
@@ -18,7 +19,7 @@ const Form = () => {
   const { t } = useTranslation();
 
   const validationSchema = object().shape({
-    firstname: string().required(t('errors.is_required')),
+    slug: string().required(t('errors.is_required')),
   });
 
   const {
@@ -30,12 +31,22 @@ const Form = () => {
     values,
   } = useFormik({
     initialValues: {
-      firstname: '',
+      slug: '',
     },
     validationSchema,
     validateOnBlur: true,
     onSubmit: data => {
-      console.log(data);
+     axios({
+        method: 'post',
+        url: '/api/new-place',
+        data: {
+          slug: data.slug,
+        }
+      })
+        .then((response) => {
+          // handle success
+          console.log(response);
+        })
     },
   });
 
@@ -49,12 +60,12 @@ const Form = () => {
         <form onSubmit={handleSubmit} css={styles} className="my-3">
           <Input
             type="text"
-            slug="firstname"
-            hasError={errors.firstname && touched.firstname !== undefined}
-            error={errors.firstname}
-            value={values.firstname}
-            onChange={handleChange('firstname')}
-            onBlur={handleBlur('firstname')}
+            slug="slug"
+            hasError={errors.slug && touched.slug !== undefined}
+            error={errors.slug}
+            value={values.slug}
+            onChange={handleChange('slug')}
+            onBlur={handleBlur('slug')}
           />
 
           <button type="submit" css={button.primary}>

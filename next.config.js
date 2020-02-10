@@ -1,3 +1,4 @@
+require('dotenv').config();
 const path = require('path');
 
 module.exports = {
@@ -11,5 +12,8 @@ module.exports = {
       use: ['@svgr/webpack'],
     });
     return config;
+  },
+  env: {
+    GRAPHCMS_TOKEN: process.env.GRAPHCMS_TOKEN,
   },
 };
