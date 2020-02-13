@@ -10,6 +10,7 @@ import { jsx } from '@emotion/core';
 
 import { Input } from 'components';
 import { button } from 'styles';
+import placeSchema from 'config/schemas/place';
 
 import styles from './PlaceForm.styles';
 
@@ -17,10 +18,6 @@ const Form = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const { t } = useTranslation();
-
-  const validationSchema = object().shape({
-    slug: string().required(t('errors.is_required')),
-  });
 
   const {
     errors,
@@ -33,7 +30,7 @@ const Form = () => {
     initialValues: {
       slug: '',
     },
-    validationSchema,
+    validationSchema: placeSchema,
     validateOnBlur: true,
     onSubmit: data => {
      axios({

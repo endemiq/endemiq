@@ -6,4 +6,7 @@ export default {
     success: 'Merci !',
     error: 'Oups...',
   },
+  schemas: {
+    required: 'Ce champs est requis',
+  },
 };
