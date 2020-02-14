@@ -1,17 +1,27 @@
 import { css } from '@emotion/core';
 
-import { colors } from 'styles';
-
 const primary = css`
-  display: inline-block;
   padding: 10px 20px 12px 20px;
-  background: ${colors.primary};
-  border: 0;
-  border-radius: 3px;
-  font-size: 1em;
-  color: ${colors.gray900};
-  text-decoration: none;
-  transition: background 0.2s;
+  ${tw([
+    'inline-block',
+    'bg-yellow',
+    'hover:bg-black',
+    'hover:text-yellow',
+    'border-0',
+    'rounded',
+    'text-base',
+    'text-gray-900',
+    'no-underline',
+    'cursor-pointer',
+  ])}
+  transition:
+    0.1s color,
+    0.1s background;
+
+  &:active,
+  &:focus {
+    ${tw('bg-black text-white')}
+  }
 `;
 
 const sm = css`

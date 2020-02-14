@@ -3,11 +3,13 @@ import { css } from '@emotion/core';
 const iconSizeBase = '0.86em';
 
 export default css`
-  display: inline-flex;
-  align-self: center;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+  ${tw([
+    'relative',
+    'inline-flex',
+    'self-center',
+    'justify-center',
+    'items-center',
+  ])}
   top: 0.1em;
   width: 1em;
   height: 1em;

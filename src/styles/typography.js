@@ -50,7 +50,7 @@ export default css`
   body {
     font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
     line-height: 1.5em;
-    color: ${colors.gray900};
+    color: ${colors.gray['900']};
 
     text-rendering: optimizeLegibility;
     font-feature-settings: 'kern' 1;
@@ -102,5 +102,12 @@ export default css`
   h5,
   .h5 {
     line-height: 1.5em;
+  }
+
+  ol,
+  ul {
+    list-style: disc;
+    margin: inherit;
+    padding: inherit;
   }
 `;

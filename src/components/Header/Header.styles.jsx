@@ -1,26 +1,25 @@
 import { css } from '@emotion/core';
 
-import { colors, sizes } from 'styles';
+import { sizes } from 'styles';
 import { toPix } from 'styles/helpers';
 
 export default css`
-  height: ${toPix(sizes.headerLg)};
-  padding: 10px ${toPix(sizes.gutter)};
-  border-bottom: 1px solid ${colors.gray100};
+  ${tw('border-b border-gray-100 py-1 px-3')}
+  height: ${toPix(sizes.headerlg)};
 
   @media only screen and (max-width: 700px) {
-    height: ${toPix(sizes.headerSm)};
+    height: ${toPix(sizes.headersm)};
   }
 
   .brand {
-    display: inline-flex;
-
     svg {
-      height: ${toPix(sizes.headerLg - 20)};
+      height: ${toPix(sizes.headerlg - 20)};
 
       @media only screen and (max-width: 700px) {
-        height: ${toPix(sizes.headerSm - 20)};
+        height: ${toPix(sizes.headersm - 20)};
       }
     }
+
+    ${tw('inline-flex')}
   }
 `;

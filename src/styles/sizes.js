@@ -2,7 +2,7 @@ const base = 8;
 
 export default {
   base,
-  gutter: base * 2,
-  headerLg: base * 9,
-  headerSm: base * 6,
+  gutter: 36,
+  headerlg: base * 9,
+  headersm: base * 6,
 };

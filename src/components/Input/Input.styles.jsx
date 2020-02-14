@@ -1,29 +1,48 @@
 import { css } from '@emotion/core';
 
-import { colors } from 'styles';
-
 export default css`
+  /* stylelint-disable-next-line selector-max-empty-lines */
+  ${tw('mb-2')}
+
   label {
-    display: block;
+    ${tw('block cursor-pointer mb-1')}
   }
 
+  /* stylelint-disable */
   input {
-    width: 100%;
-    padding: 0.8em 1.2em;
-    border: ${colors.gray500} 1px solid;
-    border-radius: 3px;
-    font-size: 1em;
-    line-height: 1em;
-    color: ${colors.gray700};
+    font-size: 16px;
+
+    ${tw([
+      'w-full',
+      'mb-05',
+      'py-1',
+      'px-2',
+      'border',
+      'border-solid',
+      'border-gray-200',
+      'appearance-none',
+      'rounded',
+      'text-gray-700',
+      'leading-tight',
+    ])}
 
     &.error {
-      border: ${colors.red} 1px solid;
+      ${tw('border border-red')}
     }
   }
+  /* stylelint-enable */
 
   input[type='checkbox'] {
-    position: relative;
+    ${tw('relative')}
     top: -2px;
     transform: scale(1.1);
+  }
+
+  span {
+    ${tw('inline-block text-sm italic')}
+  }
+
+  .error + span {
+    ${tw('text-red')}
   }
 `;

@@ -22,7 +22,7 @@ const Input = ({ type, slug, hasError, error, value, onChange, onBlur }) => {
         onChange={onChange}
         value={value}
       />
-      {hasError && <p>{error}</p>}
+      {hasError && <span>{error}</span>}
     </div>
   );
 };

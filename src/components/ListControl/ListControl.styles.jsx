@@ -1,43 +1,40 @@
 import { css } from '@emotion/core';
 
-import { colors, sizes } from 'styles';
-import { toPix } from 'styles/helpers';
-
 export default css`
-  display: flex;
-  position: fixed;
-  justify-items: space-between;
-  align-items: center;
-  z-index: 99;
-  bottom: ${toPix(sizes.gutter * 2)};
-  left: 50%;
-  padding: ${toPix(sizes.base)} ${toPix(sizes.gutter)};
-  background: ${colors.white};
-  border-radius: 200px;
-  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.4);
-  font-size: 0.85rem;
+  ${tw([
+    'flex',
+    'fixed',
+    'justify-between',
+    'items-center',
+    'z-50',
+    'bottom-0',
+    'left-1/2',
+    'mb-4',
+    'bg-white',
+    'rounded-full',
+    'shadow-md',
+    'text-sm',
+  ])}
+  padding: 6px 15px;
   transform: translateX(-50%);
 
   a {
-    text-decoration: none;
-    color: ${colors.gray500};
-    margin-left: 0.5rem;
-    padding-left: 0.5rem;
-    border-left: 1px solid ${colors.gray200};
+    ${tw('no-underline text-gray-500 ml-1 pl-1 border-gray-200')}
+    border-left-width: 1px;
+    border-left-style: solid;
     transition: color 0.25s;
 
     &:first-of-type {
-      margin-left: 0;
-      padding-left: 0;
-      border: 0;
+      ${tw('border-l-0 ml-0')}
+      padding-left: 0 !important;
     }
 
     &:hover {
-      color: ${colors.gray900};
+      ${tw('text-gray-900')}
     }
   }
 
   .icon {
-    margin-left: 0.35rem;
+    margin-left: 0.3rem;
   }
 `;

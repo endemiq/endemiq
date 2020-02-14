@@ -6,10 +6,10 @@ import PropTypes from 'prop-types';
 
 import { Header } from 'components';
 import Icons from 'components/Icon/Icons';
-import { layouts, spacing, typography } from 'styles';
+import { typography } from 'styles';
 
 const Layout = ({ children }) => (
-  <div css={[layouts, spacing]}>
+  <div>
     <Global styles={typography} />
     <Head>
       <meta

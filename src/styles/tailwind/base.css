@@ -1,0 +1,4 @@
+/* stylelint-disable */
+@tailwind base;
+
+img { display: inline-block; }
