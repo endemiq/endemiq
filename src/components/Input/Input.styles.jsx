@@ -1,7 +1,7 @@
 import { css } from '@emotion/core';
 
 export default css`
-  /* stylelint-disable-next-line selector-max-empty-lines */
+  /* stylelint-disable-next-line */
   ${tw('mb-2')}
 
   label {

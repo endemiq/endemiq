@@ -64,8 +64,8 @@ module.exports = {
         '.row': {
           display: 'flex',
           flexWrap: 'wrap',
-          marginLeft: `-${gutterWidth / 2}px`,
-          marginRight: `-${gutterWidth / 2}px`,
+          marginLeft: `-${gutterWidth / 3}px`,
+          marginRight: `-${gutterWidth / 3}px`,
         },
         '.gutter': {
           padding: `0 ${gutterWidth / 3}px`,
