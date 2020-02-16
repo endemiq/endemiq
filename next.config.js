@@ -17,5 +17,6 @@ module.exports = {
     GRAPHCMS_TOKEN: process.env.GRAPHCMS_TOKEN,
     CLOUDINARY_CLOUD: process.env.CLOUDINARY_CLOUD,
     CLOUDINARY_PRESET: process.env.CLOUDINARY_PRESET,
+    MAPBOX_TOKEN: process.env.MAPBOX_TOKEN,
   },
 };

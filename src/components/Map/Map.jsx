@@ -1,165 +1,165 @@
-/** @jsx jsx */
-import React, { useRef, useEffect } from 'react';
-import Router from 'next/router';
-import { jsx } from '@emotion/core';
+/* eslint-disable react-hooks/rules-of-hooks */
+import React, { useRef, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
+import { mergeDeepRight, pipe, forEach } from 'ramda';
 
-import mapConfig from 'config/map.json';
 import { IS_CLIENT } from 'config/constants';
 
-import styles from './Map.styles';
+import defaultOptions from './config';
+import { MapContext } from './MapProvider';
 
-const Map = ({ places, opened }) => {
+const Map = ({ options, data, points, clusters, popups, onClick }) => {
   if (!IS_CLIENT) return '';
 
-  /* eslint-disable */
+  const { accessToken } = useContext(MapContext);
   const map = useRef(null);
-  const mapElement = useRef(null);
-  const mapboxgl = require('mapbox-gl'); // eslint-disable-line
-  mapboxgl.accessToken = 'undefined';
+  const mapContainer = useRef();
 
-  useEffect(() => {
-    if (map.current !== null) map.current.resize();
-  }, [opened]);
+  // eslint-disable-next-line global-require
+  const mapboxgl = require('mapbox-gl');
+  mapboxgl.accessToken = accessToken;
 
-  // Initiate Map
-  useEffect(() => {
-    /* eslint-enable */
-    // Init map instance
-    map.current = new mapboxgl.Map({
-      container: mapElement.current,
-      style: mapConfig.style,
-      center: [6.82713, 46.57167],
-      zoom: 9,
-    });
+  const { general, navigation, layers, images } = mergeDeepRight(
+    defaultOptions,
+    options
+  );
 
-    // Add native controls
-    const nav = new mapboxgl.NavigationControl({ showZoom: false });
-    map.current.addControl(nav, 'top-right');
-    map.current.addControl(
-      new mapboxgl.GeolocateControl({
-        positionOptions: {
-          enableHighAccuracy: true,
-        },
-        trackUserLocation: true,
-      })
-    );
+  const handlePoints = () => {
+    if (points) {
+      const source = map.current.getSource('points');
 
-    // Inject images
-    if (!map.current.hasImage('cluster-img')) {
-      map.current.loadImage('/static/cluster.png', (err, image) => {
-        if (err) throw err;
-        map.current.addImage('cluster-img', image);
-      });
-    }
-    if (!map.current.hasImage('marker-img')) {
-      map.current.loadImage('/static/marker.png', (err, image) => {
-        if (err) throw err;
-        map.current.addImage('marker-img', image);
-      });
-    }
-
-    // Define cluster click event -> zoom
-    map.current.on('click', 'clusters', function(e) {
-      const features = map.current.queryRenderedFeatures(e.point, {
-        layers: ['clusters'],
-      });
-      const clusterId = features[0].properties.cluster_id;
-      map.current
-        .getSource('points')
-        .getClusterExpansionZoom(clusterId, (err, zoom) => {
-          if (err) return;
-
-          map.current.easeTo({
-            center: features[0].geometry.coordinates,
-            zoom,
+      // eslint-disable-next-line no-unused-expressions
+      source
+        ? source.setData(data)
+        : map.current.addSource('points', {
+            type: 'geojson',
+            data,
+            cluster: clusters,
+            clusterMaxZoom: 14,
+            clusterRadius: 50,
           });
+    }
+  };
+
+  const handleLayers = () => {
+    if (points && !map.current.getLayer('points')) {
+      map.current.addLayer(layers.points);
+    }
+
+    if (clusters && !map.current.getLayer('clusters')) {
+      map.current.addLayer(layers.clusters);
+    }
+  };
+
+  const handleClusters = () => {
+    if (clusters) {
+      map.current.on('click', 'clusters', e => {
+        const features = map.current.queryRenderedFeatures(e.point, {
+          layers: ['clusters'],
         });
+
+        const clusterId = features[0].properties.cluster_id;
+        map.current
+          .getSource('points')
+          .getClusterExpansionZoom(clusterId, (err, zoom) => {
+            if (err) return;
+
+            map.current.easeTo({
+              center: features[0].geometry.coordinates,
+              zoom,
+            });
+          });
+      });
+    }
+  };
+
+  const getPopupContent = ({ properties }) => `
+    <h1>${properties.title}</h1>
+  `;
+
+  const handlePopups = () => {
+    if (popups) {
+      map.current.on('click', 'points', e => {
+        const point = e.features[0];
+
+        new mapboxgl.Popup()
+          .setLngLat(point.geometry.coordinates.slice())
+          .setHTML(getPopupContent(point))
+          .addTo(map.current);
+      });
+    }
+  };
+
+  const loadImages = () => {
+    forEach(async ({ name, path }) => {
+      if (!map.current.hasImage(name)) {
+        await map.current.loadImage(path, (err, image) => {
+          if (err) throw err;
+          map.current.addImage(name, image);
+        });
+      }
+    }, images);
+  };
+
+  const updateMap = () =>
+    pipe(handlePoints, handleLayers, handleClusters, handlePopups)();
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffect(() => {
+    map.current = new mapboxgl.Map({
+      ...general,
+      container: mapContainer.current,
     });
 
-    // Define point click event -> open popup
-    map.current.on('click', 'unclustered-points', e => {
-      const point = e.features[0];
-      Router.push(`/place/[slug]`, `/place/${point.properties.slug}`);
+    const hovers = [
+      ['mouseenter', 'clusters', 'pointer'],
+      ['mouseleave', 'clusters', ''],
+      ['mouseenter', 'points', 'pointer'],
+      ['mouseleave', 'points', 'pointer'],
+    ];
+
+    hovers.forEach(([on, item, cursor]) => {
+      map.current.on(on, item, () => {
+        map.current.getCanvas().style.cursor = cursor;
+      });
     });
 
-    // Set proper hover cursor
-    map.current.on('mouseenter', 'clusters', () => {
-      map.current.getCanvas().style.cursor = 'pointer';
-    });
-    map.current.on('mouseleave', 'clusters', () => {
-      map.current.getCanvas().style.cursor = '';
-    });
-    map.current.on('mouseenter', 'unclustered-points', () => {
-      map.current.getCanvas().style.cursor = 'pointer';
-    });
-    map.current.on('mouseleave', 'unclustered-points', () => {
-      map.current.getCanvas().style.cursor = '';
-    });
-
-    // map.current.on('load', () => map.current.resize());
+    if (navigation.enabled) {
+      map.current.addControl(
+        new mapboxgl.NavigationControl(navigation.options),
+        navigation.position
+      );
+    }
   }, []);
 
-  // Prefetch places pages
-  /* eslint-disable-next-line */
   useEffect(() => {
-    places.geojson.features.forEach(place => {
-      Router.prefetch(`/place/[slug]`, `/place/${place.properties.slug}`);
-    });
-  }, [places]);
-
-  // Update Map layers when places.geojson updates
-  /* eslint-disable-next-line */
-  useEffect(() => {
-    const updateLayers = () => {
-      if (map.current.getSource('points') === undefined) {
-        map.current.addSource('points', {
-          type: 'geojson',
-          data: places.geojson,
-          cluster: true,
-          clusterMaxZoom: 14,
-          clusterRadius: 50,
+    // eslint-disable-next-line no-unused-expressions
+    map.current.loaded()
+      ? handlePoints()
+      : map.current.on('load', () => {
+          map.current.on('click', e => onClick(e));
+          loadImages();
+          updateMap();
         });
-      } else {
-        map.current.getSource('points').setData(places.geojson);
-      }
+  }, [data]);
 
-      if (
-        places.geojson.features.length <= 0 &&
-        map.current.getLayer('clusters') !== undefined
-      ) {
-        map.current.removeLayer('unclustered-points');
-        map.current.removeLayer('clusters');
-      } else if (map.current.getLayer('clusters') === undefined) {
-        map.current.addLayer(mapConfig['unclustered-points']);
-        map.current.addLayer(mapConfig.clusters);
-      }
-    };
-
-    if (map.current.loaded()) {
-      updateLayers();
-    } else {
-      map.current.on('load', () => updateLayers());
-    }
-  }, [places]);
-
-  return (
-    <div
-      id="map"
-      className="map"
-      css={styles}
-      ref={mapElement}
-      style={{ bottom: opened ? 0 : '100%' }}
-    />
-  );
+  return <div ref={mapContainer} style={{ width: '100%', height: '100%' }} />;
 };
 
 Map.propTypes = {
-  places: PropTypes.object.isRequired,
-  opened: PropTypes.bool,
+  data: PropTypes.object.isRequired,
+  popups: PropTypes.bool,
+  points: PropTypes.bool,
+  clusters: PropTypes.bool,
+  options: PropTypes.object,
+  onClick: PropTypes.func,
 };
+
 Map.defaultProps = {
-  opened: false,
+  popups: false,
+  points: false,
+  clusters: false,
+  options: {},
 };
 
 export default Map;

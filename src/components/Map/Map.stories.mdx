@@ -1,0 +1,17 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import Map from './Map';
+import MapProvider from './provider/MapProvider';
+import sample from '../../assets/samples/sample';
+
+<Meta title="Map" component={Map} />
+
+# Map
+<Preview>
+  <Story name="Default">
+    <div style={{ height: '500px', width: '100vw'}}>
+        <MapProvider accessToken={process.env.MAPBOX_ACCESS_TOKEN}>
+            <Map data={sample} popups clusters/>
+        </MapProvider>
+    </div>
+  </Story>
+</Preview>
