@@ -1,5 +1,7 @@
 # 🐝 endemiq
 
+> *endemiq* is an open-source and non-profit project to promote local products. Eating local is good, eating organic is good, but eating local and organic is ideal to reduce our impact on the planet.
+
 *endemiq* is based on ⚛️ [React](https://reactjs.org/) and [Next](https://nextjs.org/). It uses 💄 [Emotion](https://emotion.sh/) and [Tailwind](https://tailwindcss.com/) for styling, 📝 [Storybook](https://storybook.js.org/) for documentation and ✅ [Jest](https://jestjs.io/) and [Cypress](https://www.cypress.io/) for testing.
 
 ## Installation
