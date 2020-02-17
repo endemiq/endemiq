@@ -10,7 +10,16 @@ import { IS_CLIENT } from 'config/constants';
 import defaultOptions from './config';
 import { MapContext } from './MapProvider';
 
-const Map = ({ options, data, points, clusters, popups, opened, onClick }) => {
+const Map = ({
+  options,
+  data,
+  points,
+  clusters,
+  popups,
+  opened,
+  onClick,
+  onClickPoint,
+}) => {
   if (!IS_CLIENT) return '';
 
   const { accessToken } = useContext(MapContext);
@@ -140,6 +149,7 @@ const Map = ({ options, data, points, clusters, popups, opened, onClick }) => {
       ? handlePoints()
       : map.current.on('load', () => {
           map.current.on('click', e => onClick(e));
+          map.current.on('click', 'points', e => onClickPoint(e));
           loadImages();
           updateMap();
         });
@@ -165,6 +175,7 @@ Map.propTypes = {
   opened: PropTypes.bool,
   options: PropTypes.object,
   onClick: PropTypes.func,
+  onClickPoint: PropTypes.func,
 };
 
 Map.defaultProps = {
@@ -177,6 +188,8 @@ Map.defaultProps = {
   clusters: false,
   opened: true,
   options: {},
+  onClick: () => console.log('click on map'),
+  onClickPoint: () => console.log('click on marker'),
 };
 
 export default Map;

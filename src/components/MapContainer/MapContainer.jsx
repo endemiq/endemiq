@@ -20,6 +20,12 @@ const MapContainer = ({ places }) => {
         clusters
         points
         opened={router.pathname === '/'}
+        onClickPoint={e =>
+          router.push(
+            `/place/[slug]`,
+            `/place/${e.features[0].properties.slug}`
+          )
+        }
       />
     </div>
   );

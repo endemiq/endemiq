@@ -16,7 +16,7 @@ export default {
       source: 'points',
       layout: {
         'icon-image': 'marker-img',
-        'icon-size': 0.3,
+        'icon-size': 0.4,
         'icon-anchor': 'bottom',
       },
     },
@@ -27,7 +27,7 @@ export default {
       source: 'points',
       layout: {
         'icon-image': 'cluster-img',
-        'icon-size': 0.35,
+        'icon-size': 0.4,
         'text-field': '{point_count_abbreviated}',
         'text-font': ['Open Sans Bold', 'Arial Unicode MS Regular'],
         'text-size': 12,
@@ -40,8 +40,11 @@ export default {
   images: [
     {
       name: 'marker-img',
-      path:
-        'https://res.cloudinary.com/dwzk6imzg/image/upload/v1581064522/marker.png',
+      path: '/marker.png',
+    },
+    {
+      name: 'cluster-img',
+      path: '/cluster.png',
     },
   ],
 };
