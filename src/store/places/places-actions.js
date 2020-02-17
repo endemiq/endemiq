@@ -1,4 +1,4 @@
-import { mapPlaces } from 'services/api';
+import { fetchPlaces } from 'services/api';
 
 export const SET_PLACES = 'SET_PLACES';
 export const SET_PLACES_GEOJSON = 'SET_PLACES_GEOJSON';
@@ -24,7 +24,7 @@ export const setGeojson = places => ({
 });
 
 export const getPlaces = domain => dispatch =>
-  mapPlaces(domain)
+  fetchPlaces(domain)
     .then(({ data }) => {
       dispatch({ type: SET_PLACES, payload: data.places });
       dispatch(setGeojson(data.places));

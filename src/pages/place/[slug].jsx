@@ -1,42 +1,75 @@
+/** @jsx jsx */
 import React from 'react';
-import { connect } from 'react-redux';
-import { useRouter } from 'next/router';
+import Markdown from 'react-markdown/with-html';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
+import { jsx } from '@emotion/core';
 
-import { Layout } from 'components';
+import { Layout, Picture } from 'components';
+import { fetchPlace } from 'services/api';
+import { getHost } from 'utils';
 
-const PlacePage = ({ places }) => {
-  const router = useRouter();
-  const { slug } = router.query;
-  const place = places.collection[slug];
+const PlacePage = ({ data }) => {
+  const { t } = useTranslation();
+  const place = data.place.revisions[0];
+  const {
+    cover,
+    title,
+    subTitle,
+    type,
+    email,
+    phone,
+    website,
+    description,
+    address,
+    openingHours,
+    labels,
+  } = place;
 
   return (
     <Layout>
-      <img src={place.cover} width="100%" alt="cover" />
-      <div className="container">
-        <h1 className="mt-1">{place.title}</h1>
-        <h2 className="h4 mt-2">{place.subTitle}</h2>
-        <em>{place.type}</em>
+      {cover && (
+        <Picture src={cover} ratio="16/5" sm="full" md="full" lg="full" />
+      )}
+      <div css={tw('container')}>
+        <h1 css={tw('mt-1')}>{title}</h1>
+        <h2 className="h4" css={tw('mt-2')}>
+          {subTitle}
+        </h2>
+        <em>{t(`options.${type}`)}</em>
         <br />
         <br />
-        <a href={`mailto:${place.email}`}>{place.email}</a>
-        <a href={`tel:${place.phone}`}>{place.phone}</a>
+        <a href={`mailto:${email}`}>{email}</a>
+        <br />
+        <a href={`tel:${phone}`}>{phone}</a>
+        <br />
+        <a href={website}>{website}</a>
         <br />
         <br />
-        {/* eslint-disable */}
-        <div dangerouslySetInnerHTML={{ __html: place.description }} />
-        <div  className="mt-3" dangerouslySetInnerHTML={{ __html: place.openingHours }} />
-        {/* eslint-enable */}
+        <br />
+        <Markdown source={description} />
+        <Markdown source={address} />
+        <Markdown source={openingHours} />
+        {labels &&
+          labels.map((label, i) => (
+            <span key={`label-${i}`}>{t(`options.${label}`)}</span>
+          ))}
       </div>
     </Layout>
   );
 };
 
 PlacePage.propTypes = {
-  places: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired,
 };
 PlacePage.defaultProps = {};
 
-const mapState = ({ places }) => ({ places });
+PlacePage.getInitialProps = async ({ query, req, isServer }) => {
+  const host = getHost(isServer, req);
+  const { slug } = query;
+  const { data } = await fetchPlace(slug, host);
 
-export default connect(mapState)(PlacePage);
+  return { data };
+};
+
+export default PlacePage;

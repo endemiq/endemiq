@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper'; // eslint-disable-line
 
 import { MapContainer } from 'components';
+import { getHost } from 'utils';
 import makeStore from 'store/index';
 import { getPlaces, setLoading } from 'store/places/places-actions';
 import MapProvider from 'components/Map/MapProvider.jsx';
@@ -24,14 +25,7 @@ Router.events.on('routeChangeError', () => NProgress.done());
 class CustomApp extends App {
   static async getInitialProps({ Component, ctx }) {
     if (ctx.store.getState().places.geojson === null) {
-      let host = null;
-      if (ctx.isServer && ctx.req.headers.referer) {
-        host = `${ctx.req.headers.referer.split('//')[0]}//${
-          ctx.req.headers.host
-        }`;
-      } else if (!ctx.isServer) {
-        host = `${window.location.protocol}//${window.location.host}`;
-      }
+      const host = getHost(ctx.isServer, ctx.req);
 
       if (host) {
         console.log('fetch data', host);
