@@ -1,0 +1,11 @@
+{
+  "build": {
+    "env": {
+      "GRAPHCMS_ENDPOINT": "@graphcms_endpoint",
+      "GRAPHCMS_TOKEN": "@graphcms_token",
+      "CLOUDINARY_CLOUD": "@cloudinary_cloud",
+      "CLOUDINARY_PRESET": "@cloudinary_preset",
+      "MAPBOX_TOKEN": "@mapbox_token"
+    }
+  }
+}
