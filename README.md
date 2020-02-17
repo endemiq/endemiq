@@ -1,68 +1,107 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 🐝 endemiq
 
-## Available Scripts
+*endemiq* is based on ⚛️ [React](https://reactjs.org/) and [Next](https://nextjs.org/). It uses 💄 [Emotion](https://emotion.sh/) and [Tailwind](https://tailwindcss.com/) for styling, 📝 [Storybook](https://storybook.js.org/) for documentation and ✅ [Jest](https://jestjs.io/) and [Cypress](https://www.cypress.io/) for testing.
 
-In the project directory, you can run:
+## Installation
 
-### `npm start`
+First of all, you need to have the following tools installed globally on your environment:
+- [📗 NodeJS **11**](https://nodejs.org/en/) - JavaScript runtime used to build and run the project
+- [🐈 Yarn](https://yarnpkg.com/lang/en/) - Dependency manager built on top of the NPM registry
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+To install the project:
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+```bash
+$ yarn
+```
 
-### `npm test`
+## Usage
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Those are the main commands to use:
 
-### `npm run build`
+### 💻 Development
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+# Copy .env.sample file and complete it.
+$ cp .env.sample .env
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+# Start dev mode
+$ yarn dev
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Start production mode
+$ yarn build
+$ yarn start
 
-### `npm run eject`
+# Clean project (remove .next directory)
+$ yarn clean
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### 🧱 Add a new component
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+All our best practices are summarised inside the `./components/Blank` component. If you need to create a new component, use the following command:
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```bash
+# Start generact
+$ yarn new
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### 💄 Styles
 
-## Learn More
+Our style system is based on [TailwindCSS](https://tailwindcss.com/) and [babel-plugin-tailwind](https://github.com/andrewdelprete/babel-plugin-tailwind/) to allow using it in CSS-in-JS. But because this Babel plugin uses a generated `tailwind.custom.css` to establish Tailwind's styles, we need to generate it, based on the [standard configuration](https://tailwindcss.com/docs/configuration) located in `src/styles/tailwind.config.js`. It's automatically done *before both `yarn dev` and `yarn build` commands, but to do it manually:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+# Generate base (preflight) styles
+$ yarn tailwind:base
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Generate utils styles
+$ yarn tailwind:utils
 
-### Code Splitting
+# Generate all Tailwind styles
+$ yarn tailwind:build
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+*⚠️ If the configuration changes, you'll need to rebuild or restart the dev server.
 
-### Analyzing the Bundle Size
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+### ⚠️ Linters
 
-### Making a Progressive Web App
+Thanks to [Husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged), our linters are automatically fired when a commit is attempted. To fire them manually:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+```bash
+# Lint Styles
+$ yarn lint:css
 
-### Advanced Configuration
+# Lint JavaScript
+$ yarn lint:js
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+### ✅ Tests
 
-### Deployment
+```bash
+# Open Cypress app for live dev/testing
+$ yarn cy:open
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+# Start unit tests
+$ yarn test:unit
 
-### `npm run build` fails to minify
+# Start E2E tests
+$ yarn test:e2e
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+### 📝 Storybook
+
+```bash
+# Start Storybook server
+$ yarn storybook:start
+
+# Deploy Storybook on our gh-pages
+$ yarn storybook:deploy
+```
+
+## Contribute
+
+The project is using the **Gitflow workflow**. It defines a strict branching model designed around the project release.
+
+You can learn more on the following resources :
+- [Vincent Driessen's post](http://nvie.com/posts/a-successful-git-branching-model/)
+- [Gitflow Workflow guide](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
+- [git-flow cheatsheet](https://danielkummer.github.io/git-flow-cheatsheet/)

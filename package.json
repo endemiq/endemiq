@@ -14,7 +14,8 @@
     "lint:js": "eslint src --ext .js,.jsx --max-warnings=0",
     "lint": "npm run lint:js && npm run lint:css",
     "storybook:start": "start-storybook -p 1234",
-    "storybook:build": "build-storybook"
+    "storybook:build": "build-storybook",
+    "new": "npx generact"
   },
   "husky": {
     "hooks": {

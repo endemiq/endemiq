@@ -120,5 +120,9 @@ export default css`
     & > * {
       margin-bottom: 2rem;
     }
+
+    a {
+      color: ${colors.blue};
+    }
   }
 `;

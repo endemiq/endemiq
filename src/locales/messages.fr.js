@@ -63,5 +63,12 @@ Pour modifier un nouveau lieu, il vous suffit de remplir le formulaire ci-dessou
   about: 'À propos',
   aboutContent: `
 # À propos
+
+_endemiq_ est un projet non lucratif et open source qui a pour but de promouvoir les produits locaux. Consommer local c'est bien, consommé bio c'est bien, mais **consommer local ET bio** c'est idéal pour réduire notre empreinte écologique.
+
+Pour l'instant, **le projet est en beta**. Néanmoins, il est utilisable en l'état, mais certaines fonctionnalités sont encore manquantes.
+
+→ Rendez-vous sur [Github](https://github.com/endemiq/endemiq) pour suivre le développement
+
   `,
 };
