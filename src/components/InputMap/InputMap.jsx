@@ -25,7 +25,7 @@ const InputMap = ({
       </label>
       <div
         css={[
-          tw('mb-1 w-full rounded overflow-hidden'),
+          tw('relative mb-1 w-full rounded overflow-hidden'),
           { height: '300px' },
           hasError && tw('border border-solid border-red-500'),
         ]}

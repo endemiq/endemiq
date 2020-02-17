@@ -1,9 +1,9 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /** @jsx jsx */
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
-// import axios from 'axios';
 import { append, reject } from 'ramda';
 import slugify from 'slugify';
 import { useFormik } from 'formik';
@@ -13,6 +13,7 @@ import { Input, Editor, InputMap } from 'components';
 import { button, alert } from 'styles';
 import { upload } from 'services/cloudinary';
 import { newPlace, updatePlace } from 'services/api';
+import { IS_CLIENT } from 'config/constants';
 import placeSchema from 'config/schemas/place';
 import types from 'config/types';
 import labels from 'config/labels';
@@ -20,6 +21,8 @@ import labels from 'config/labels';
 import styles from './PlaceForm.styles';
 
 const Form = ({ data, isUpdate }) => {
+  if (!IS_CLIENT) return '';
+
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');

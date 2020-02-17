@@ -8,9 +8,10 @@ const IndexPage = ({ places }) => (
   <Layout>
     <div className="container">
       <div className="row flex wrap my-4">
-        {places.geojson.features.map(place => (
-          <ListItem key={place.properties.slug} item={place} />
-        ))}
+        {places.geojson &&
+          places.geojson.features.map(place => (
+            <ListItem key={place.properties.slug} item={place} />
+          ))}
       </div>
     </div>
     <ListControl />

@@ -11,7 +11,7 @@ export default function placesReducer(state = initialState, action) {
     case SET_PLACES:
       return {
         ...state,
-        collection: action.payload.reduce((acc, val) => {
+        items: action.payload.reduce((acc, val) => {
           acc[val.slug] = val;
           return acc;
         }, {}),

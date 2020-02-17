@@ -8,4 +8,6 @@ export Layout from 'components/Layout';
 export ListControl from 'components/ListControl';
 export ListItem from 'components/ListItem';
 export Map from 'components/Map';
+export MapContainer from 'components/MapContainer';
+export Picture from 'components/Picture';
 export PlaceForm from 'components/PlaceForm';

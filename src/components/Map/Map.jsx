@@ -1,14 +1,16 @@
 /* eslint-disable react-hooks/rules-of-hooks */
+/** @jsx jsx */
 import React, { useRef, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { mergeDeepRight, pipe, forEach } from 'ramda';
+import { jsx } from '@emotion/core';
 
 import { IS_CLIENT } from 'config/constants';
 
 import defaultOptions from './config';
 import { MapContext } from './MapProvider';
 
-const Map = ({ options, data, points, clusters, popups, onClick }) => {
+const Map = ({ options, data, points, clusters, popups, opened, onClick }) => {
   if (!IS_CLIENT) return '';
 
   const { accessToken } = useContext(MapContext);
@@ -143,22 +145,37 @@ const Map = ({ options, data, points, clusters, popups, onClick }) => {
         });
   }, [data]);
 
-  return <div ref={mapContainer} style={{ width: '100%', height: '100%' }} />;
+  useEffect(() => {
+    map.current.resize();
+  }, [opened]);
+
+  return (
+    <div
+      ref={mapContainer}
+      css={tw('absolute top-0 bottom-0 left-0 right-0')}
+    />
+  );
 };
 
 Map.propTypes = {
-  data: PropTypes.object.isRequired,
+  data: PropTypes.object,
   popups: PropTypes.bool,
   points: PropTypes.bool,
   clusters: PropTypes.bool,
+  opened: PropTypes.bool,
   options: PropTypes.object,
   onClick: PropTypes.func,
 };
 
 Map.defaultProps = {
+  data: {
+    type: 'FeatureCollection',
+    features: [],
+  },
   popups: false,
   points: false,
   clusters: false,
+  opened: true,
   options: {},
 };
 

@@ -1,4 +1,4 @@
-import { getFirebasePlaces } from 'services/firebase';
+import { mapPlaces } from 'services/api';
 
 export const SET_PLACES = 'SET_PLACES';
 export const SET_PLACES_GEOJSON = 'SET_PLACES_GEOJSON';
@@ -12,22 +12,22 @@ export const setGeojson = places => ({
     features: places.map(place => ({
       type: 'Feature',
       properties: {
-        ...place,
+        slug: place.slug,
+        ...place.revisions[0],
       },
       geometry: {
         type: 'Point',
-        coordinates: [place.lng, place.lat],
+        coordinates: [place.geolocation.longitude, place.geolocation.latitude],
       },
     })),
   },
 });
 
-export const getPlaces = () => dispatch =>
-  getFirebasePlaces()
-    .then(querySnapshot => {
-      const places = querySnapshot.docs.map(doc => doc.data());
-      dispatch({ type: SET_PLACES, payload: places });
-      dispatch(setGeojson(places));
+export const getPlaces = domain => dispatch =>
+  mapPlaces(domain)
+    .then(({ data }) => {
+      dispatch({ type: SET_PLACES, payload: data.places });
+      dispatch(setGeojson(data.places));
     })
     .catch(err => dispatch({ type: SET_PLACES_ERROR, payload: err }));
 

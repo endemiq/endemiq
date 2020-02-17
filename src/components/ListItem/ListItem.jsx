@@ -4,20 +4,21 @@ import Link from 'next/link';
 import { jsx } from '@emotion/core';
 import PropTypes from 'prop-types';
 
-import { Icon } from 'components';
+import { Icon, Picture } from 'components';
 
 import styles from './ListItem.styles';
 
 const ListItem = ({ item }) => (
   <Link href="/place/[slug]" as={`/place/${item.properties.slug}`}>
     <a css={styles}>
+      <span css={tw('w-1/4 mr-1')}>
+        <Picture src={item.properties.cover} />
+      </span>
       <span>
         <h3 className="h4">{item.properties.title}</h3>
-        <em>{item.properties.subTitle}</em>
-        <br />
-        <span className="pt-2">{item.properties.email}</span>
+        <em>{item.properties.subtitle}</em>
       </span>
-      <span className="ml-auto">
+      <span css={tw('ml-auto')}>
         <Icon name="chevron-right" />
       </span>
     </a>

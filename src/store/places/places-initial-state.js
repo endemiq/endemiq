@@ -2,7 +2,7 @@ const initialState = {
   loading: false,
   error: null,
   geojson: null,
-  collection: [],
+  items: [],
 };
 
 export default initialState;
