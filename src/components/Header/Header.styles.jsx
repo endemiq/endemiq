@@ -4,7 +4,7 @@ import { sizes } from 'styles';
 import { toPix } from 'styles/helpers';
 
 export default css`
-  ${tw('fixed w-full z-20 bg-white py-1 shadow-md')}
+  ${tw('fixed w-full z-20 flex bg-white shadow-md')}
   height: ${toPix(sizes.header)};
 
   .brand {

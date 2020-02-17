@@ -43,4 +43,25 @@ export default {
   errors: {
     slug_not_unique: 'Cette URL est déjà utilisée',
   },
+  home: 'Accueil',
+  add: 'Ajouter',
+  addContent: `
+# Ajouter un lieu
+
+Pour ajouter un nouveau lieu, il vous suffit de remplir le formulaire ci-dessous. **Les informations seront ensuite revues par notre équipe** et après validation, publiées sur _endemiq_. Merci d'avance pour votre contribution !
+
+*_Pour une expérience d'édition optimale, il est recommandé d'utiliser un ordinateur plutôt qu'un smartphone._
+  `,
+  edit: 'Modifier',
+  editContent: `
+# Modifier un lieu
+
+Pour modifier un nouveau lieu, il vous suffit de remplir le formulaire ci-dessous. **Les informations seront ensuite revues par notre équipe** et après validation, publiées sur _endemiq_. Merci d'avance pour votre contribution !
+
+*_Pour une expérience d'édition optimale, il est recommandé d'utiliser un ordinateur plutôt qu'un smartphone._
+  `,
+  about: 'À propos',
+  aboutContent: `
+# À propos
+  `,
 };

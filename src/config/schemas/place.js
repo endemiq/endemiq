@@ -30,7 +30,7 @@ export default object().shape({
     .required(i18n.t('schemas.required')),
 
   // Enum based checkboxes OR tags ? +ADD_NEW
-  label: array().of(mixed().oneOf(labels)),
+  labels: array().of(mixed().oneOf(labels)),
 
   // products: ['Oeufs', 'Poulets fermies', '...'], // Products title
   // or → offers: ['Oeufs frais', 'Lait dès 18h',...]

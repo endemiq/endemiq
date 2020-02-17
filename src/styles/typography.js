@@ -110,4 +110,15 @@ export default css`
     margin: inherit;
     padding: inherit;
   }
+
+  strong,
+  b {
+    font-weight: 600;
+  }
+
+  .content {
+    & > * {
+      margin-bottom: 2rem;
+    }
+  }
 `;

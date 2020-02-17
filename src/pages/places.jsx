@@ -6,7 +6,7 @@ import { jsx } from '@emotion/core';
 
 import { Layout, ListControl, ListItem } from 'components';
 
-const IndexPage = ({ places }) => (
+const PlacesPage = ({ places }) => (
   <Layout>
     <div css={tw('container')}>
       <div css={tw('row my-4')}>
@@ -20,11 +20,11 @@ const IndexPage = ({ places }) => (
   </Layout>
 );
 
-IndexPage.propTypes = {
+PlacesPage.propTypes = {
   places: PropTypes.object.isRequired,
 };
-IndexPage.defaultProps = {};
+PlacesPage.defaultProps = {};
 
 const mapState = ({ places }) => ({ places });
 
-export default connect(mapState)(IndexPage);
+export default connect(mapState)(PlacesPage);

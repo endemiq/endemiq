@@ -2,8 +2,13 @@ import axios from 'axios';
 
 export default async (req, res) => {
   const { slug } = req.body;
-  const query = `query allPlaces {
+  const query = `query Place {
     place(where: {slug: "${slug}"}) {
+      id,
+      geolocation {
+        longitude
+        latitude
+      }
       revisions(orderBy: updatedAt_DESC, first: 1) {
         slug
         title
@@ -20,8 +25,6 @@ export default async (req, res) => {
       }
     }
   }`;
-
-  console.log(query);
 
   const response = await axios({
     method: 'post',

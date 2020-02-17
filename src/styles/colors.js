@@ -11,6 +11,8 @@ module.exports = {
   },
   black: '#000',
   yellow: '#FFEC00',
+  blue: '#0002FC',
+  cyan: '#50E3C2',
   red: {
     '100': '#FFDBE5',
     '500': '#E7114E',

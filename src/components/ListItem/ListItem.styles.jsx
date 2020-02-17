@@ -40,7 +40,7 @@ export default css`
     ${tw('text-lg text-gray-500')}
   }
 
-  > span + span + span {
+  .icon-wrapper {
     ${tw('md:hidden')}
   }
 `;

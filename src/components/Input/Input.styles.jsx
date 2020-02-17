@@ -19,7 +19,7 @@ export default css`
   /* stylelint-disable */
   input:not([type='checkbox']),
   select {
-    font-size: 16px;
+    font-size: 16px !important;
 
     ${tw([
       'w-full',

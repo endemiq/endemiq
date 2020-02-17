@@ -14,7 +14,7 @@ export default async (req, res) => {
     email,
     website,
     type,
-    label,
+    labels,
   } = req.body;
 
   const query = `mutation {
@@ -32,7 +32,7 @@ export default async (req, res) => {
       website: "${website}"
       type: ${type}
       labels: {
-        set: [${label.join(',')}]
+        set: [${labels.join(',')}]
       }
       place: {
         connect: { id: "${id}" }

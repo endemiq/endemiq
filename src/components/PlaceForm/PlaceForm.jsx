@@ -57,8 +57,8 @@ const Form = ({ data, isUpdate }) => {
             setError(true);
           }
         })
-        .catch(err => {
-          setErrorMsg(err);
+        .catch(() => {
+          setErrorMsg(t('form.error'));
           setError(true);
         });
     },
@@ -67,18 +67,14 @@ const Form = ({ data, isUpdate }) => {
   return (
     <>
       {success && (
-        <div css={tw('md:w-3/4 mx-auto my-6')}>
+        <div css={tw('my3-6')}>
           <div css={alert.success}>{t('form.success')}</div>
           <Link href="/">{t('form.back_to_home')}</Link>
         </div>
       )}
 
       {!success && (
-        <form
-          onSubmit={handleSubmit}
-          css={[styles, tw('md:w-3/4 mx-auto my-6')]}
-          className="my-3"
-        >
+        <form onSubmit={handleSubmit} css={styles} className="my-3">
           {!isUpdate && (
             <div css={tw('row items-baseline')}>
               <Input
@@ -229,15 +225,15 @@ const Form = ({ data, isUpdate }) => {
 
           <Input
             type="checkbox"
-            slug="label"
-            hasError={errors.label && touched.label !== undefined}
-            error={errors.label}
-            value={values.label}
+            slug="labels"
+            hasError={errors.labels && touched.labels !== undefined}
+            error={errors.labels}
+            value={values.labels}
             onChange={({ checked, value }) => {
               const label = checked
-                ? append(value, values.label)
-                : reject(a => a === value, values.label);
-              setFieldValue(`label`, label);
+                ? append(value, values.labels)
+                : reject(a => a === value, values.labels);
+              setFieldValue(`labels`, label);
             }}
             options={labels}
           />
@@ -272,7 +268,7 @@ Form.defaultProps = {
     email: '',
     website: '',
     type: '',
-    label: [],
+    labels: [],
   },
   isUpdate: false,
 };

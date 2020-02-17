@@ -1,7 +1,7 @@
 import { css } from '@emotion/core';
 
 const primary = css`
-  padding: 10px 20px 12px 20px;
+  padding: 8px 18px 10px 18px;
   ${tw([
     'inline-block',
     'bg-yellow',
