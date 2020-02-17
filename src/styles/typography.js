@@ -3,7 +3,7 @@ import { css } from '@emotion/core';
 import { colors } from 'styles';
 
 const responsiveSizes = {
-  default: 0.3,
+  default: 0.25,
   h1: 2.28,
   h2: 1.24,
   h3: 0.4,
@@ -14,7 +14,7 @@ const responsiveSizes = {
 const responsiveTypography = (
   base = '16px',
   elements = { default: 0.5 },
-  limit = '1920px'
+  limit = '1200px'
 ) => `
   ${Object.keys(elements)
     .map(element => {
