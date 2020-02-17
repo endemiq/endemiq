@@ -10,7 +10,7 @@ import styles from './Header.styles';
 
 const Header = () => (
   <>
-    <header css={[styles, tw('flex text-center justify-center')]}>
+    <header css={[styles, tw('flex container')]}>
       <Link href="/">
         <a className="brand">
           <Logo />

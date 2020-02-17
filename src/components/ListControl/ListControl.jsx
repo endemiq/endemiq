@@ -14,12 +14,16 @@ const ListControl = ({ isMap }) => {
 
   return (
     <div css={styles}>
-      <Link href="/places">
-        <a>
-          {t('filter')}
-          <Icon name="sliders" />
-        </a>
-      </Link>
+      <a
+        href="#filters"
+        onClick={e => {
+          e.preventDefault();
+          alert('coming soon ;)');
+        }}
+      >
+        {t('filter')}
+        <Icon name="sliders" />
+      </a>
       {isMap && (
         <Link href="/places">
           <a>

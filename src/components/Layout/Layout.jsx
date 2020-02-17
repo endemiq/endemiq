@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 import { Header } from 'components';
 import Icons from 'components/Icon/Icons';
-import { typography } from 'styles';
+import { typography, sizes } from 'styles';
 
 const Layout = ({ children }) => (
   <div>
@@ -16,14 +16,14 @@ const Layout = ({ children }) => (
         name="viewport"
         content="width=device-width, initial-scale=1, shrink-to-fit=no"
       />
-      <link rel="manifest" href="/static/manifest.json" />
+      <link rel="manifest" href="/manifest.json" />
       {/* Import CSS for nprogress */}
       <link rel="stylesheet" href="//rsms.me/inter/inter.css" />
-      <link rel="stylesheet" type="text/css" href="/static/nprogress.css" />
+      <link rel="stylesheet" type="text/css" href="/nprogress.css" />
     </Head>
     <Icons />
     <Header />
-    <main>{children}</main>
+    <main css={{ paddingTop: `${sizes.header}px` }}>{children}</main>
   </div>
 );
 
