@@ -10,6 +10,7 @@ import { jsx } from '@emotion/core';
 import { Input, Editor, InputMap } from 'components';
 import { button } from 'styles';
 import { upload } from 'services/cloudinary';
+import { newPlace } from 'services/api';
 import placeSchema from 'config/schemas/place';
 import types from 'config/types';
 import labels from 'config/labels';
@@ -55,17 +56,7 @@ const Form = () => {
       setSuccess(true);
       if (data === undefined) setError(true);
       console.log('submit', data);
-      //  axios({
-      //     method: 'post',
-      //     url: '/api/new-place',
-      //     data: {
-      //       slug: data.slug,
-      //     }
-      //   })
-      //     .then((response) => {
-      //       // handle success
-      //       console.log(response);
-      //     })
+      newPlace(data).then(res => console.log(res));
     },
   });
 

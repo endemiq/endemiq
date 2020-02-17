@@ -1,5 +1,7 @@
 import { string, object, mixed, array, number } from 'yup';
 
+import types from 'config/types';
+import labels from 'config/labels';
 import i18n from 'locales/i18n.js';
 
 export default object().shape({
@@ -24,11 +26,11 @@ export default object().shape({
 
   // Enum based select, config sync ? +ADD_NEW
   type: mixed()
-    .oneOf(['Farm', 'Shop', 'Market'])
+    .oneOf(types)
     .required(i18n.t('schemas.required')),
 
   // Enum based checkboxes OR tags ? +ADD_NEW
-  label: array().of(mixed().oneOf(['Bio', 'Demeter'])),
+  label: array().of(mixed().oneOf(labels)),
 
   // products: ['Oeufs', 'Poulets fermies', '...'], // Products title
   // or → offers: ['Oeufs frais', 'Lait dès 18h',...]
