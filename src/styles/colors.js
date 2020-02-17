@@ -11,6 +11,15 @@ module.exports = {
   },
   black: '#000',
   yellow: '#FFEC00',
-  red: '#E7114E',
+  red: {
+    '100': '#FFDBE5',
+    '500': '#E7114E',
+    '900': '#7A0728',
+  },
+  green: {
+    '100': '#e0ffd7',
+    '500': '#38af11',
+    '900': '#1b5a06',
+  },
   transparent: 'rgba(0, 0, 0, 0)',
 };

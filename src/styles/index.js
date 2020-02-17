@@ -1,3 +1,4 @@
+export alert from 'styles/alert';
 export colors from 'styles/colors';
 export sizes from 'styles/sizes';
 export typography from 'styles/typography';

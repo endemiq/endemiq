@@ -24,21 +24,28 @@ const InputMap = ({
         {required && <sup css={tw('text-xs')}>*</sup>}
       </label>
       <div
-        css={[tw('mb-1 w-full rounded overflow-hidden'), { height: '300px' }]}
+        css={[
+          tw('mb-1 w-full rounded overflow-hidden'),
+          { height: '300px' },
+          hasError && tw('border border-solid border-red-500'),
+        ]}
       >
         <Map
           id="map-input"
           data={{
             type: 'FeatureCollection',
-            features: [
-              {
-                type: 'Feature',
-                geometry: {
-                  type: 'Point',
-                  coordinates: [value.longitude, value.latitude],
-                },
-              },
-            ],
+            features:
+              value.longitude && value.latitude
+                ? [
+                    {
+                      type: 'Feature',
+                      geometry: {
+                        type: 'Point',
+                        coordinates: [value.longitude, value.latitude],
+                      },
+                    },
+                  ]
+                : [],
           }}
           options={{ general: { scrollZoom: false } }}
           points
@@ -50,7 +57,9 @@ const InputMap = ({
         />
       </div>
       {hasError && (
-        <span css={tw('inline-block text-sm italic text-red')}>{error}</span>
+        <span css={tw('inline-block text-sm italic text-red-500')}>
+          {error}
+        </span>
       )}
       {!hasError && help && (
         <span css={tw('inline-block text-sm italic')}>{help}</span>

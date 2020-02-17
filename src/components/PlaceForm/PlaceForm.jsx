@@ -1,5 +1,7 @@
 /** @jsx jsx */
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 // import axios from 'axios';
 import { append, reject } from 'ramda';
@@ -8,19 +10,22 @@ import { useFormik } from 'formik';
 import { jsx } from '@emotion/core';
 
 import { Input, Editor, InputMap } from 'components';
-import { button } from 'styles';
+import { button, alert } from 'styles';
 import { upload } from 'services/cloudinary';
-import { newPlace } from 'services/api';
+import { newPlace, updatePlace } from 'services/api';
 import placeSchema from 'config/schemas/place';
 import types from 'config/types';
 import labels from 'config/labels';
 
 import styles from './PlaceForm.styles';
 
-const Form = () => {
+const Form = ({ data, isUpdate }) => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
   const { t } = useTranslation();
+
+  const submitMethod = isUpdate ? updatePlace : newPlace;
 
   const {
     errors,
@@ -31,40 +36,39 @@ const Form = () => {
     values,
     setFieldValue,
   } = useFormik({
-    initialValues: {
-      slug: 'my-slug',
-      title: 'Title',
-      subtitle: 'My subtitle',
-      cover:
-        'https://res.cloudinary.com/endemiq/image/upload/v1581848377/w9aszbv0eafpyqjcdi7x.png',
-      description: 'My farm is **amazing**',
-      geolocation: {
-        longitude: 6.750912348632369,
-        latitude: 46.514642163162506,
-      },
-      address: 'ici',
-      opening: 'mtn',
-      phone: '123',
-      email: 'hello@asdas.com',
-      website: 'https://hello.com',
-      type: 'Farm',
-      label: ['Bio'],
-    },
+    initialValues: data,
     validationSchema: placeSchema,
     validateOnBlur: true,
-    onSubmit: data => {
-      setSuccess(true);
-      if (data === undefined) setError(true);
-      console.log('submit', data);
-      newPlace(data).then(res => console.log(res));
+    onSubmit: formData => {
+      submitMethod(formData)
+        .then(res => {
+          if (res.status === 200) {
+            setSuccess(true);
+          } else {
+            const msg = res.data[0].message;
+            if (msg.includes('A unique constraint')) {
+              setErrorMsg(t('errors.slug_not_unique'));
+            } else {
+              setErrorMsg(t('form.error'));
+            }
+            setError(true);
+          }
+        })
+        .catch(err => {
+          setErrorMsg(err);
+          setError(true);
+        });
     },
   });
 
-  // return <h1>yo</h1>;
   return (
     <>
-      {success && <div>{t('form.success')}</div>}
-      {error && <div>{t('form.error')}</div>}
+      {success && (
+        <div css={tw('md:w-3/4 mx-auto my-6')}>
+          <div css={alert.success}>{t('form.success')}</div>
+          <Link href="/">{t('form.back_to_home')}</Link>
+        </div>
+      )}
 
       {!success && (
         <form
@@ -72,30 +76,32 @@ const Form = () => {
           css={[styles, tw('md:w-3/4 mx-auto my-6')]}
           className="my-3"
         >
-          <div css={tw('row items-baseline')}>
-            <Input
-              type="text"
-              slug="slug"
-              hasError={errors.slug && touched.slug !== undefined}
-              help={`${t('form.slugHelp')}\n${t(
-                'form.for_ex'
-              )} http://endemiq.ch/${values.slug || 'sunny-store'}`}
-              error={errors.slug}
-              value={values.slug}
-              onChange={e =>
-                setFieldValue(
-                  `slug`,
-                  slugify(e.target.value, {
-                    lower: true,
-                    remove: /[*+~.()'"“”?^<>≤≥`–—/\\!;:@[\]{}]/g,
-                  })
-                )
-              }
-              onBlur={handleBlur('slug')}
-              styles={tw('w-1/2 gutter')}
-              required
-            />
-          </div>
+          {!isUpdate && (
+            <div css={tw('row items-baseline')}>
+              <Input
+                type="text"
+                slug="slug"
+                hasError={errors.slug && touched.slug !== undefined}
+                help={`${t('form.slugHelp')}\n${t(
+                  'form.for_ex'
+                )} http://endemiq.ch/${values.slug || 'sunny-store'}`}
+                error={errors.slug}
+                value={values.slug}
+                onChange={e =>
+                  setFieldValue(
+                    `slug`,
+                    slugify(e.target.value, {
+                      lower: true,
+                      remove: /[*+~.()'"“”?^<>≤≥`–—/\\!;:@[\]{}]/g,
+                    })
+                  )
+                }
+                onBlur={handleBlur('slug')}
+                styles={tw('w-1/2 gutter')}
+                required
+              />
+            </div>
+          )}
 
           <div css={tw('row items-baseline')}>
             <Input
@@ -143,18 +149,20 @@ const Form = () => {
             value={values.description}
           />
 
-          <InputMap
-            slug="geolocation"
-            hasError={errors.geolocation && touched.geolocation !== undefined}
-            help={t('form.geolocationHelp')}
-            value={values.geolocation}
-            error={errors.geolocation}
-            onChange={val => {
-              handleChange('geolocation', val);
-              setFieldValue('geolocation', val);
-            }}
-            onBlur={handleBlur('geolocation')}
-          />
+          {!isUpdate && (
+            <InputMap
+              slug="geolocation"
+              hasError={errors.geolocation && touched.geolocation !== undefined}
+              help={t('form.geolocationHelp')}
+              value={values.geolocation}
+              error={errors.geolocation && t('form.geolocationError')}
+              onChange={val => {
+                handleChange('geolocation', val);
+                setFieldValue('geolocation', val);
+              }}
+              onBlur={handleBlur('geolocation')}
+            />
+          )}
 
           <Editor
             slug="address"
@@ -231,6 +239,8 @@ const Form = () => {
             options={labels}
           />
 
+          {error && <div css={alert.error}>{errorMsg}</div>}
+
           <button type="submit" css={button.primary}>
             {t('form.submit')}
           </button>
@@ -238,6 +248,30 @@ const Form = () => {
       )}
     </>
   );
+};
+
+Form.propTypes = {
+  data: PropTypes.object,
+  isUpdate: PropTypes.bool,
+};
+
+Form.defaultProps = {
+  data: {
+    slug: '',
+    title: '',
+    subtitle: '',
+    cover: '',
+    description: '',
+    geolocation: {},
+    address: '',
+    opening: '',
+    phone: '',
+    email: '',
+    website: '',
+    type: '',
+    label: [],
+  },
+  isUpdate: false,
 };
 
 export default Form;

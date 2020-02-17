@@ -36,7 +36,7 @@ export default css`
     ])}
 
     &.error {
-      ${tw('border border-red')}
+      ${tw('border border-red-500')}
     }
   }
   /* stylelint-enable */
@@ -57,6 +57,6 @@ export default css`
   }
 
   .error + span {
-    ${tw('text-red')}
+    ${tw('text-red-500')}
   }
 `;

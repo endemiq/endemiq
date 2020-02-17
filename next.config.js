@@ -14,6 +14,7 @@ module.exports = {
     return config;
   },
   env: {
+    GRAPHCMS_ENDPOINT: process.env.GRAPHCMS_ENDPOINT,
     GRAPHCMS_TOKEN: process.env.GRAPHCMS_TOKEN,
     CLOUDINARY_CLOUD: process.env.CLOUDINARY_CLOUD,
     CLOUDINARY_PRESET: process.env.CLOUDINARY_PRESET,
