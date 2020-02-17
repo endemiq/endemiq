@@ -29,3 +29,5 @@ src/.next
 storybook-static/
 src/config/firebase.json
 src/styles/base.css
+
+.now
