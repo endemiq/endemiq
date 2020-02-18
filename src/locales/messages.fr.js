@@ -69,6 +69,10 @@ _endemiq_ est un projet non lucratif et open source qui a pour but de promouvoir
 Pour l'instant, **le projet est en beta**. Néanmoins, il est utilisable en l'état, mais certaines fonctionnalités sont encore manquantes.
 
 → Rendez-vous sur [Github](https://github.com/endemiq/endemiq) pour suivre le développement
-
   `,
+  content: {
+    contact: 'Informations de contact',
+    labels: 'Labels',
+    opening: "Heures d'ouverture",
+  },
 };

@@ -24,9 +24,9 @@ export default async (req, res) => {
       title: "${title}"
       subtitle: "${subtitle}"
       cover: "${cover}",
-      description: "${description}"
-      opening: "${opening}"
-      address: "${address}"
+      description: """${description}"""
+      opening: """${opening}"""
+      address: """${address}"""
       phone: "${phone}"
       email: "${email}"
       website: "${website}"

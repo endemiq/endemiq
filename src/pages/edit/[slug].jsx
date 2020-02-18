@@ -13,7 +13,10 @@ const EditPage = ({ data }) => {
   const { t } = useTranslation();
 
   const { id, geolocation } = data.place;
-  const place = data.place.revisions[0];
+  const place = Object.entries(data.place.revisions[0]).reduce(
+    (acc, [key, val]) => ({ ...acc, [key]: val !== 'null' ? val : null }),
+    {}
+  );
 
   return (
     <Layout>

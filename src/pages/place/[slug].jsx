@@ -7,7 +7,7 @@ import { jsx } from '@emotion/core';
 
 import { Layout, Picture } from 'components';
 import { fetchPlace } from 'services/api';
-import { getHost } from 'utils';
+import { getHost, fixMD } from 'utils';
 
 const PlacePage = ({ data }) => {
   const { t } = useTranslation();
@@ -24,7 +24,10 @@ const PlacePage = ({ data }) => {
     address,
     openingHours,
     labels,
-  } = place;
+  } = Object.entries(place).reduce(
+    (acc, [key, val]) => ({ ...acc, [key]: val !== 'null' ? val : null }),
+    {}
+  );
 
   return (
     <Layout>
@@ -32,28 +35,64 @@ const PlacePage = ({ data }) => {
         <Picture src={cover} ratio="16/5" sm="full" md="full" lg="full" />
       )}
       <div css={tw('container')}>
-        <h1 css={tw('mt-1')}>{title}</h1>
-        <h2 className="h4" css={tw('mt-2')}>
-          {subTitle}
-        </h2>
-        <em>{t(`options.${type}`)}</em>
-        <br />
-        <br />
-        <a href={`mailto:${email}`}>{email}</a>
-        <br />
-        <a href={`tel:${phone}`}>{phone}</a>
-        <br />
-        <a href={website}>{website}</a>
-        <br />
-        <br />
-        <br />
-        <Markdown source={description} />
-        <Markdown source={address} />
-        <Markdown source={openingHours} />
-        {labels &&
-          labels.map((label, i) => (
-            <span key={`label-${i}`}>{t(`options.${label}`)}</span>
-          ))}
+        <div css={tw('md:w-3/5 mx-auto my-4')} className="content">
+          <section>
+            <h1 css={tw('mt-1')}>{title}</h1>
+            {subTitle && (
+              <h2 className="h4" css={tw('mt-2')}>
+                {subTitle}
+              </h2>
+            )}
+            <p>
+              <span>🏷️</span>
+              <em>{t(`options.${type}`)}</em>
+            </p>
+          </section>
+
+          <Markdown source={fixMD(description)} escapeHtml={false} />
+
+          <section>
+            <h2 css={tw('mb-2')}>{t('content.contact')}</h2>
+            <p>
+              {email && (
+                <>
+                  <a href={`mailto:${email}`}>{email}</a>
+                  <br />
+                </>
+              )}
+              {phone && (
+                <>
+                  <a href={`tel:${phone}`}>{phone}</a>
+                  <br />
+                </>
+              )}
+              {website && (
+                <>
+                  <a href={website}>{website}</a>
+                  <br />
+                </>
+              )}
+            </p>
+            <Markdown source={fixMD(address)} escapeHtml={false} />
+          </section>
+
+          {openingHours && (
+            <section>
+              <h2>{t('content.opening')}</h2>
+              <Markdown source={fixMD(openingHours)} escapeHtml={false} />
+            </section>
+          )}
+
+          <section>
+            <h2 css={tw('mb-2')}>{t('content.labels')}</h2>
+            <ul css={tw('pl-2')}>
+              {labels &&
+                labels.map((label, i) => (
+                  <li key={`label-${i}`}>{t(`options.${label}`)}</li>
+                ))}
+            </ul>
+          </section>
+        </div>
       </div>
     </Layout>
   );
