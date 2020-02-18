@@ -9,20 +9,20 @@ export default object().shape({
   slug: string().required(i18n.t('schemas.required')),
 
   title: string().required(i18n.t('schemas.required')),
-  subtitle: string(),
-  cover: string(), // Cloudinary upload before
-  description: string(), // Markdown rich editor
+  subtitle: string().nullable(),
+  cover: string().nullable(), // Cloudinary upload before
+  description: string().nullable(), // Markdown rich editor
   geolocation: object()
     .shape({
       longitude: number().required(i18n.t('schemas.required')),
       latitude: number().required(i18n.t('schemas.required')),
     })
     .required(i18n.t('schemas.required')),
-  address: string(), // textarea
-  opening: string(), // textarea
-  phone: string(), // phone input
-  email: string(),
-  website: string(),
+  address: string().nullable(), // textarea
+  opening: string().nullable(), // textarea
+  phone: string().nullable(), // phone input
+  email: string().nullable(),
+  website: string().nullable(),
 
   // Enum based select, config sync ? +ADD_NEW
   type: mixed()
@@ -30,7 +30,9 @@ export default object().shape({
     .required(i18n.t('schemas.required')),
 
   // Enum based checkboxes OR tags ? +ADD_NEW
-  labels: array().of(mixed().oneOf(labels)),
+  labels: array()
+    .of(mixed().oneOf(labels))
+    .nullable(),
 
   // products: ['Oeufs', 'Poulets fermies', '...'], // Products title
   // or → offers: ['Oeufs frais', 'Lait dès 18h',...]
