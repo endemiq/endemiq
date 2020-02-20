@@ -1,5 +1,5 @@
 ---
-name: "Task"
+name: "☑️ Task"
 about: Task issue
 title: ''
 labels: ''

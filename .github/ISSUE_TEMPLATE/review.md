@@ -1,5 +1,5 @@
 ---
-name: "Review"
+name: "🔬 Review"
 about: Create a new review issue
 title: ''
 labels: 'type: Review'

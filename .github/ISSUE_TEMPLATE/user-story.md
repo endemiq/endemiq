@@ -1,5 +1,5 @@
 ---
-name: "User story"
+name: "👤 User story"
 about: User Story epic issue
 title: '[User] I want to'
 labels: 'type: User Story'
