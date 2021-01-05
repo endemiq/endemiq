@@ -42,7 +42,7 @@
     "@emotion/core": "^10.0.27",
     "@emotion/styled": "^10.0.27",
     "@svgr/webpack": "^5.1.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "clsx": "^1.1.0",
     "dotenv": "^8.2.0",
     "draft-js": "^0.11.4",
